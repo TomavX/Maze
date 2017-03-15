@@ -13,7 +13,8 @@ public class RayShooter : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		if(Input.GetMouseButtonDown(0))
         {
             Vector3 point = new Vector3(_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
@@ -21,7 +22,14 @@ public class RayShooter : MonoBehaviour {
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit))
             {
-                StartCoroutine(SphereIndicator(hit.point));
+                GameObject hitObject = hit.transform.gameObject;
+                ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+                if(target != null)
+                {
+                    target.ReactToHit();
+                }
+                else
+                    StartCoroutine(SphereIndicator(hit.point));
             }
         }
 	}
