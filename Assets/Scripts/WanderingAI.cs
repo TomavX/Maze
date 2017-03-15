@@ -9,9 +9,10 @@ public class WanderingAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Translate(0, 0, speed * Time.deltaTime);
-        Ray ray = new Ray(transform.position, transform.forward);
+        Vector3 originPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + .6f);
+        Ray ray = new Ray(originPoint, transform.forward);
         RaycastHit hit;
-        if (Physics.SphereCast(ray, .75f, out hit))
+        if (Physics.SphereCast(ray, .5f, out hit))
             if (hit.distance < obstacleRange)
                 transform.Rotate(0, Random.Range(-110, 110), 0);
 	}
